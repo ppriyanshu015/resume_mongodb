@@ -1,0 +1,42 @@
+<%- include("partials/head", { pageTitle, resume }) %>
+<body>
+<div class="toolbar no-print">
+  <span>CURRICULUM VITAE</span>
+  <button onclick="window.print()">Print / Save as PDF ↓</button>
+</div>
+<main class="cv">
+  <header class="cv-header">
+    <div>
+      <p class="eyebrow">CURRICULUM VITAE</p>
+      <h1><%= resume.personalInfo.fullName %></h1>
+      <p class="role"><%= resume.personalInfo.professionalTitle %></p>
+    </div>
+    <div class="contact">
+      <a href="mailto:<%= resume.personalInfo.email %>"><%= resume.personalInfo.email %></a>
+      <a href="tel:<%= resume.personalInfo.phone.replace(/\\s/g, "") %>"><%= resume.personalInfo.phone %></a>
+      <span><%= resume.personalInfo.location %></span>
+    </div>
+  </header>
+
+  <section><h2>Professional Summary</h2><p class="summary"><%= resume.personalInfo.summary %></p></section>
+
+  <section>
+    <h2>Educational Qualifications</h2>
+    <% resume.education.forEach(item => { %>
+      <article class="entry">
+        <div class="entry-title"><h3><%= item.qualification %></h3><span><%= item.period %></span></div>
+        <p><%= item.institution %></p>
+        <% if (item.result) { %><small><%= item.result %></small><% } %>
+      </article>
+    <% }) %>
+  </section>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <div class="skills"><% resume.technicalSkills.forEach(skill => { %><span><%= skill %></span><% }) %></div>
+  </section>
+
+
+  <footer><span><%= resume.personalInfo.fullName %></span><span><%= resume.personalInfo.email %></span></footer>
+</main>
+</body></html>
